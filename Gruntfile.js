@@ -350,7 +350,7 @@ module.exports = function (grunt) {
       grunt.task.run(['karma:debug']);
     } else {
       grunt.task.run(['karma:unit']);
-    };
+    }
   });
 
   grunt.registerTask('build', [
