@@ -303,9 +303,15 @@ module.exports = function (grunt) {
 
     // Test settings
     karma: {
+      options: {
+        configFile: 'karma.conf.js'
+      },
       unit: {
-        configFile: 'karma.conf.js',
         singleRun: true
+      },
+      debug: {
+        autoWatch: true,
+        singleRun: false
       }
     }
   });
@@ -331,13 +337,21 @@ module.exports = function (grunt) {
     grunt.task.run(['serve']);
   });
 
-  grunt.registerTask('test', [
-    'clean:server',
-    'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'karma'
-  ]);
+  grunt.registerTask('test', function(){
+    grunt.task.run([
+      'clean:server',
+      'concurrent:test',
+      'autoprefixer',
+      'connect:test'
+    ]);
+
+    // Passing the flag --debug will disable singleRun
+    if (grunt.option('debug')) {
+      grunt.task.run(['karma:debug']);
+    } else {
+      grunt.task.run(['karma:unit']);
+    }
+  });
 
   grunt.registerTask('build', [
     'clean:dist',
