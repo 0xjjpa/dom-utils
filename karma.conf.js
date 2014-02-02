@@ -20,6 +20,10 @@ module.exports = function(config) {
     // list of files / patterns to exclude
     exclude: [],
 
+    // displays on console result
+    reporters: ['dots'],
+
+
     // web server port
     port: 8080,
 
